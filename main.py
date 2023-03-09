@@ -6,11 +6,14 @@ FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSekeWndUp3RzGgcjjXngAlDLkCd
 
 scraper = OLXScraper(OLX_URL)
 scraper.get_listings()
-scraper.get_links()
-scraper.get_prices()
-scraper.get_addresses()
 print(scraper)
 
 bot = FormBot()
-bot.complete_form(FORM_URL)
+
+for listing in scraper.listings:
+    address = scraper.get_address(listing)
+    price = scraper.get_price(listing)
+    url = scraper.get_link(listing)
+    print(url, price, address)
+    bot.complete_form(FORM_URL, address, price, url)
 
