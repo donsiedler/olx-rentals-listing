@@ -11,6 +11,7 @@ class OLXScraper:
         self.soup = BeautifulSoup(self.response, "html.parser")
         self.listings = None
         self.links = []
+        self.prices = []
 
     def get_listings(self):
         self.listings = self.soup.findAll(name="div", class_="css-1sw7q4x", attrs={"data-cy": "l-card"})
@@ -25,7 +26,12 @@ class OLXScraper:
         print(self.links)
 
     def get_prices(self):
-        pass
+        for listing in self.listings:
+            try:
+                price = listing.find(name="p", class_="css-10b0gli").text
+            except AttributeError:
+                price = "n/a"
+            self.prices.append(price)
 
     def get_addresses(self):
         pass
@@ -34,3 +40,4 @@ class OLXScraper:
 scraper = OLXScraper(OLX_URL)
 scraper.get_listings()
 scraper.get_links()
+scraper.get_prices()
