@@ -16,7 +16,6 @@ class OLXScraper:
 
     def get_listings(self):
         self.listings = self.soup.findAll(name="div", class_="css-1sw7q4x", attrs={"data-cy": "l-card"})
-        print(len(self.listings))
 
     def get_links(self):
         for listing in self.listings:
@@ -24,7 +23,6 @@ class OLXScraper:
             if url[0] == "/":
                 url = f"https://olx.pl{url}"
             self.links.append(url)
-        print(self.links)
 
     def get_prices(self):
         for listing in self.listings:
