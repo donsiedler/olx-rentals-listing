@@ -12,6 +12,7 @@ class OLXScraper:
         self.listings = None
         self.links = []
         self.prices = []
+        self.addresses = []
 
     def get_listings(self):
         self.listings = self.soup.findAll(name="div", class_="css-1sw7q4x", attrs={"data-cy": "l-card"})
@@ -34,10 +35,14 @@ class OLXScraper:
             self.prices.append(price)
 
     def get_addresses(self):
-        pass
+        for listing in self.listings:
+            address = listing.find(name="p", class_="css-veheph", attrs={"data-testid": "location-date"})
+            address = address.text.split("-")[0].rstrip()
+            self.addresses.append(address)
 
 
 scraper = OLXScraper(OLX_URL)
 scraper.get_listings()
 scraper.get_links()
 scraper.get_prices()
+scraper.get_addresses()
