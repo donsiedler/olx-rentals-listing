@@ -1,14 +1,20 @@
 import requests
 from bs4 import BeautifulSoup
+from pprint import pprint
 
-OTODOM_URL = "https://www.otodom.pl/pl/oferty/wynajem/mieszkanie/wroclaw?ownerTypeSingleSelect=ALL&distanceRadius=0" \
-             "&locations=%5Bcities_6-39%5D&viewType=listing&limit=72&page=1"
+OLX_URL = "https://www.olx.pl/nieruchomosci/mieszkania/wynajem/wroclaw/"
 
 
-class OtodomScraper:
+class OLXScraper:
     def __init__(self, url):
         self.response = requests.get(url).text
         self.soup = BeautifulSoup(self.response, "html.parser")
+        self.listings = None
+
+    def get_listings(self):
+        listings = self.soup.findAll(name="div", class_="css-1sw7q4x")
+        pprint(listings)
+        print(len(listings))
 
     def get_links(self):
         pass
@@ -20,4 +26,5 @@ class OtodomScraper:
         pass
 
 
-scraper = OtodomScraper(OTODOM_URL)
+scraper = OLXScraper(OLX_URL)
+scraper.get_listings()
