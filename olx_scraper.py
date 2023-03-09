@@ -22,7 +22,7 @@ class OLXScraper:
 
     def get_price(self, listing):
         try:
-            price = listing.find(name="p", class_="css-10b0gli").text
+            price = listing.find(name="p", class_="css-10b0gli").text.split("zł")[0].rstrip()
         except AttributeError:
             price = "n/a"
         return price
