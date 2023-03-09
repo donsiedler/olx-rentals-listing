@@ -10,10 +10,9 @@ print(scraper)
 
 bot = FormBot()
 
-for listing in scraper.listings:
+for index, listing in enumerate(scraper.listings):
     address = scraper.get_address(listing)
     price = scraper.get_price(listing)
     url = scraper.get_link(listing)
-    print(url, price, address)
+    print(f"{index + 1}: {address, price, url}")
     bot.complete_form(FORM_URL, address, price, url)
-
