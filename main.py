@@ -14,6 +14,12 @@ class OLXScraper:
         self.prices = []
         self.addresses = []
 
+    def __str__(self):
+        return (f"Found {len(scraper.listings)} listings. \n"
+                f"Links ({len(scraper.links)}): {scraper.links} \n"
+                f"Prices ({len(scraper.prices)}): {scraper.prices} \n"
+                f"Addresses ({len(scraper.addresses)}): {scraper.addresses} \n")
+
     def get_listings(self):
         self.listings = self.soup.findAll(name="div", class_="css-1sw7q4x", attrs={"data-cy": "l-card"})
 
